@@ -19,4 +19,10 @@
         rgba(0, 0, 0, 0.03) 0px 0.29rem 0.35rem, 
         rgba(0, 0, 0, 0.1) 0px 0px 0.8rem
     }
+
+    @media(max-width: 500px) {
+        .card {
+            padding: 1.5rem;
+        }
+    }
 </style>

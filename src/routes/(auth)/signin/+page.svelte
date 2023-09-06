@@ -14,13 +14,11 @@
 
 </script>
 <Card>
-    <h1>Sign In</h1>
+    <h2>Sign In</h2>
     <form on:submit|preventDefault={signIn}>
         <input type="email" name="email" id="email" placeholder="E-mail">
         <button type="submit">Submit</button>
-        <div>
-            <p>Don't have an Account?</p>
-            <a href="/signup">Sign Up</a>
-        </div>
     </form> 
+    <h4>Don't have an Account?</h4>
+    <a href="/signup">Sign Up</a>
 </Card>

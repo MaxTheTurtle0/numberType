@@ -1,4 +1,5 @@
 <script>
+	import Card from '$lib/components/card.svelte';
 
     /** @type {import('./$types').PageData} */ 
     export let data;
@@ -15,24 +16,22 @@
         // @ts-ignore
         document.querySelector("input[type=hidden]").value = tmpContacts[randomIndex]["id"];
         // @ts-ignore
-        document.getElementById("contact-name").innerHTML = `Contact Name: ${tmpContacts[randomIndex]["name"]}`
+        document.getElementById("contact-name").innerHTML = `${tmpContacts[randomIndex]["name"]}`
     }
 
 </script>
 
-{#await contacts}
-    <div>Loading</div>
-{:then contacts}  
+<Card>
     {#if contacts.length === 0}
-        <h2>No contacts found</h2>
+        <h2>You have no contacts</h2>
     {:else}
-        <h2 id="contact-name">Contact Name: {contacts[0]["name"]}</h2>
+        <h2 id="contact-name">{contacts[0]["name"]}</h2>
         <form on:submit|preventDefault={nextContact}>
             <input type="hidden" value={contacts[0].id}>
             <input type="tel" placeholder={contacts[0]["phone"]}>
         </form>
     {/if}
-{/await}
+</Card>
 
 <style>
 

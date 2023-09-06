@@ -14,9 +14,7 @@
         <input type="text" name="username" id="username" placeholder="Username">
         <input type="email" name="email" id="email" placeholder="E-mail">
         <button type="submit">Submit</button>
-        <div>
-            <p>Already have an Account?</p>
-            <a href="/signin">Sign In</a>
-        </div>
     </form>
+    <h4>Already have an Account?</h4>
+    <a href="/signin">Sign In</a>
 </Card>

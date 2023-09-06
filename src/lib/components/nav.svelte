@@ -34,5 +34,12 @@
     li {
         list-style: none;
     }
+
+    @media (max-width: 500px) {
+        button {
+            width: fit-content;
+            padding: 0.5rem 1rem;
+        }
+    }
     
 </style>

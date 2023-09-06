@@ -50,6 +50,9 @@
 </div>
 
 <div id="contacts">
+    {#if contacts.length === 0}
+        <h1>You have no contacts</h1>
+    {:else}
     <h1>Your Contacts</h1>
     {#each contacts as contact}
         <div id="contact">
@@ -60,6 +63,7 @@
             </form>
         </div>
     {/each}
+    {/if}
     <button type="button" on:click={() => goto("/contacts/add")}>Add Contact</button>
 </div>
 
