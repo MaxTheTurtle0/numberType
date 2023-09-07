@@ -2,6 +2,18 @@
 
     import { goto } from "$app/navigation";
 
+    /**
+     * Search contacts by name
+     * @param {Event} event 
+     */
+    async function searchContacts(event) {
+        // @ts-ignore
+        const search = event.target.value;
+        const contacts = await fetch(`/api/contacts?name=${search}`).then(response => response.json());
+
+        console.log(contacts);
+    }
+
 </script>
 
 <header>
@@ -10,8 +22,7 @@
             <li><button type="button" on:click={() => goto("/")}>Practice</button></li>
             <li><button type="button" on:click={() => goto("/contacts")}>Contacts</button></li>
             <li><button type="button" on:click={() => goto("/contacts/add")}>Add Contact</button></li>
-            <!-- Search not working yet (didn't create an API endpoint yet) --> 
-            <li><input type="search" placeholder="Search"></li>
+            <li><input type="search" placeholder="Search" on:input={searchContacts}></li>
         </ul>
     </nav>
 </header>
