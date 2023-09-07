@@ -23,7 +23,7 @@
 
 <Card>
     {#if contacts.length === 0}
-        <h2>You have no contacts</h2>
+        <h1>You have no contacts</h1>
     {:else}
         <h2 id="contact-name">{contacts[0]["name"]}</h2>
         <form on:submit|preventDefault={nextContact}>

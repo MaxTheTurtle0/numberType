@@ -5,7 +5,7 @@
 </script>
 
 <Card>
-    <h2>Add Contact</h2>
+    <h1>Add Contact</h1>
     <form action="?/createContact" method="post">
         <input type="text" name="name" placeholder="name">
         <input type="tel" name="phone" placeholder="tel number">
