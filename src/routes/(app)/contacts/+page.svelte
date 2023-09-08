@@ -45,23 +45,34 @@
 
     #contact {
         display: grid;
+        align-items: center;
         grid-template-areas:
-            "name delete"
-            "phone delete";
-        grid-template-columns: 200px 30px;
+            "name phone delete";
+        grid-template-columns: 200px 200px 30px;
     }
 
-    #contact h2 {
-        grid-area: name;
-    }
+    @media (max-width: 550px) {
+        #contact {
+            display: grid;
+            grid-template-areas:
+                "name delete"
+                "phone delete";
+            grid-template-columns: 200px 30px;
+        }  
+        
+        #contact h2 {
+            grid-area: name;
+        }
 
-    #contact h3 {
-        grid-area: phone;
-    }
+        #contact h3 {
+            grid-area: phone;
+        }
 
-    #contact form {
-        grid-area: delete;
-    } 
+        #contact form {
+            grid-area: delete;
+        }
+    }
+     
 
     .delete {
         width: 30px;

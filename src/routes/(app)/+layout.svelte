@@ -15,7 +15,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 80dvh;
+        height: 75dvh;
     }
 
 </style>
