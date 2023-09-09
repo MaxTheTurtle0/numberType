@@ -6,150 +6,187 @@
      * Search contacts by name
      * @param {Event} event 
      */
-    async function searchContacts(event) {
+    async function searchContacts(event) { 
+
         // @ts-ignore
-        const contacts = await fetch(`/api/contacts?name=${event.target.value}`).then(response => response.json());
+        const input = event.target.value;
 
         const searchResults = document.querySelector(".search-results");
+        
+        if (!searchResults) return;
 
-        if (searchResults) {
-            searchResults.innerHTML = "";
-            contacts.forEach(contact => {
-                const contactElement = document.createElement("div");
-                contactElement.innerHTML = `<h2>${contact.name}</h2>`;
-                searchResults.appendChild(contactElement);
-            });
-        }
+        searchResults.innerHTML = "";
+
+        if (!input || input.length === 0) return;
+
+        const contacts = await fetch(`/api/contacts?name=${input}`).then(response => response.json());
+
+        // @ts-ignore
+        contacts.forEach(contact => {
+            const contactElement = document.createElement("div");
+            contactElement.innerHTML = `<h2>${contact.name}</h2>`;
+            searchResults.appendChild(contactElement);
+        });
     }
 
 </script>
 
 <header>
+    <h1>NumberType</h1>
+    <input type="checkbox" id="burger-menu-checkbox">
+    <label for="burger-menu-checkbox">
+        <span></span>
+    </label>
     <nav>
-        <button aria-label="Menu" aria-expanded="false" class="burger-menu">
-            <span></span>
-        </button>
         <ul>
-            <li class="practice"><button type="button" on:click={() => goto("/")}>Practice</button></li>
-            <li class="contacts"><button type="button" on:click={() => goto("/contacts")}>Contacts</button></li>
-            <li class="search"><input type="search" placeholder="Search" on:input={searchContacts}><div class="search-results"></div></li>
-            <li class="add"><button type="button" on:click={() => goto("/contacts/add")}>+</button></li>
+            <li><button type="button" on:click={() => goto("/")}>Practice</button></li>
+            <li><button type="button" on:click={() => goto("/contacts")}>Contacts</button></li>
+            <li></li>
+            <li>
+                <div class="search">
+                    <input type="search" placeholder="Search" on:input={searchContacts}>
+                    <button class="add-btn" type="button" on:click={() => goto("/contacts/add")}>+</button> 
+                </div>
+                <div class="search-results"></div>
+            </li>
         </ul>
     </nav>
 </header>
 
-<style> 
-
+<style>
+    
     header {
-        margin-top: 2rem;
-        height: 10dvh;
-    }    
+        text-align: center;
+        position: fixed;
+        z-index: 2;
+        width: 100%;
+        background-color: #efefef;
+    }
+
+    h1 {
+        padding: 0.5rem;
+    }
 
     nav {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+        position: absolute;
+        text-align: left;
+        top: 100%;
+        background-color: #efefef;
+        width: 100%;
+        transform: scale(1, 0);
+        transform-origin: top;
+        transition: transform 0.4s ease-in-out;
     }
+  
 
     ul {
-        display: grid;
-        grid-template-columns: 180px 180px 50px;
-        grid-template-areas: 
-            "practice contacts add"
-            "search search search";
-        gap: 1rem;
-    }
-
-    .practice {
-        grid-area: practice;
-    } 
-
-    .practice button {
-        width: 100%;
-    }
-
-    .contacts {
-        grid-area: contacts;
-    }
-
-    .contacts button {
-        width: 100%;
-    }
-
-    .search {
-        grid-area: search;
-    }
-
-    .add {
-        grid-area: add;
-    }   
-
-    .add button {
-        width: 100%;
-        font-size: 2.5rem;
-    }
-
-    input {
-        width: 100%;
-    }
-
-    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         list-style: none;
     }
-
-    .burger-menu {
-        display: none;
-        position: fixed;
-        top: 0px;
-        left: 0px;
+    
+    nav li {
+        margin-bottom: 0.5rem;
+        margin-left: 0.5rem;
     }
 
-    .burger-menu span {
+    nav li, nav button {
+        opacity: 0;
+        transition: opacity 0.18s ease-in-out;
+    }
+
+    button {
+        width: 300px;
+    }
+
+    label {
         display: flex;
-        width: 2rem;
-        height: 0.25rem;
-        background-color: #fff;
-        border-radius: 0.25rem;
-        transition: all 0.3s ease-in-out;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        margin-left: 0.5rem;
+        padding: 0.5rem;
+        cursor: pointer;
     }
 
-    span::before, span::after {
+    label span, label span::before, label span::after {
+        display: block;
+        background-color: #000;
+        height: 2px;
+        width: 1.5rem;
+    }
+
+    label span::before, label span::after {
         content: "";
         position: absolute;
-        width: 2rem;
-        height: 0.25rem;
-        background-color: #fff;
-        border-radius: 0.25rem;
-        transition: all 0.3s ease-in-out;
+        transition: transform 0.4s ease;
     }
 
-    span::after {
-        transform: translateY(0.75rem);
+    label span::before {
+        transform: translateY(-0.5rem);
     }
 
-    span::before {
-        transform: translateY(-0.75rem);
+    label span::after {
+        transform: translateY(0.5rem);
+    }
+
+    #burger-menu-checkbox {
+        display: none;
+    }
+
+    #burger-menu-checkbox:checked ~ nav {
+        display: block;
+        transform: scale(1, 1);
+    }
+
+    #burger-menu-checkbox:checked ~ nav li, #burger-menu-checkbox:checked ~ nav button {
+        opacity: 1;
+        transition: opacity 0.25s ease-in-out 0.18s;
+    }
+
+    #burger-menu-checkbox:checked ~ label span {
+        background-color: transparent;
+    }
+
+    #burger-menu-checkbox:checked ~ label span::before {
+        transform: translateY(0) rotate(45deg);
+    }
+
+    #burger-menu-checkbox:checked ~ label span::after {
+        transform: translateY(0) rotate(-45deg);
     }
 
     .search-results {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
         position: absolute;
         z-index: 1;
+        top: 100%; 
+        width: 300px;
+        border-radius: 0 0 0.5rem 0.5rem;
+        background-color: #efefef;
     }
 
-    @media (max-width: 500px) {
-        button {
-            width: fit-content;
-            padding: 0.5rem;
-        }
-
-        .burger-menu {
-            display: block;
-        }
-
-        ul {
-            display: none;
-        }
+    .search {
+        display: flex;
+        align-items: center;
+        width: 300px;
+        gap: 0.5rem;
     }
-    
+
+    .search input {
+        width: 240px;
+    }
+
+    .search button {
+        font-size: 2.5rem;
+        width: 50px;
+    }
+
 </style>
+
