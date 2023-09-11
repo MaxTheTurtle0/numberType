@@ -3,7 +3,7 @@
     import { goto } from "$app/navigation";
 
     /**
-     * Search contacts by name
+     * Search contacts by name and display results
      * @param {Event} event 
      */
     async function searchContacts(event) { 
@@ -21,10 +21,16 @@
 
         const contacts = await fetch(`/api/contacts?name=${input}`).then(response => response.json());
 
-        // @ts-ignore
-        contacts.forEach(contact => {
-            const contactElement = document.createElement("div");
-            contactElement.innerHTML = `<h2>${contact.name}</h2>`;
+        const contactElement = document.createElement("div");
+        
+        if (!contacts || contacts.length === 0) {
+            contactElement.innerHTML = "<h2>No results</h2>";
+            searchResults.appendChild(contactElement);
+            return;
+        }
+        
+        contacts.forEach((/** @type {{ name: string, id: number, phone: string }} */ contact) => {
+            contactElement.innerHTML += `<h2>${contact.name}</h2>`;
             searchResults.appendChild(contactElement);
         });
     }
@@ -41,7 +47,6 @@
         <ul>
             <li><button type="button" on:click={() => goto("/")}>Practice</button></li>
             <li><button type="button" on:click={() => goto("/contacts")}>Contacts</button></li>
-            <li></li>
             <li>
                 <div class="search">
                     <input type="search" placeholder="Search" on:input={searchContacts}>
@@ -168,6 +173,7 @@
         z-index: 1;
         top: 100%; 
         width: 300px;
+        max-width: 300px;
         border-radius: 0 0 0.5rem 0.5rem;
         background-color: #efefef;
     }
@@ -186,6 +192,45 @@
     .search button {
         font-size: 2.5rem;
         width: 50px;
+    }
+
+    @media (min-width: 768px) {
+        label {
+            display: none;
+        }
+        
+        h1 {
+            display: none;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            height: 60px;
+        }
+
+        nav {
+            position: static;
+            transform: scale(1, 1);
+        }
+
+        ul {
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        nav li {
+            margin-bottom: 0;
+            margin-left: 1rem;
+        }
+
+        nav li, nav button {
+            opacity: 1;
+        }
+
+        button {
+            width: 180px;
+        }
     }
 
 </style>
