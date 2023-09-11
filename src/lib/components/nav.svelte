@@ -1,7 +1,7 @@
 <script>
 
     import { goto } from "$app/navigation";
-
+       
     /**
      * Search contacts by name and display results
      * @param {Event} event 

@@ -1,18 +1,37 @@
 import { prisma } from '$lib/server/prisma';
 import { fail, redirect } from '@sveltejs/kit';
 
+/** @type {import('./$types').PageServerLoad} */
+export const load = async (event) => {
+    const session = await event.locals.getSession();
+    if (!session?.user) throw redirect(303, "/signin");
+    // @ts-ignore
+    const userId = await prisma.session.findMany({
+        where: {
+            expires: session.expires,
+        },
+    });
+
+    // @ts-ignore
+    return {
+        userId: userId[0].userId,
+    };
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
     createContact: async ({ request }) => {
-        const { name, phone } = Object.fromEntries(await request.formData());
-        if (!name || !phone) return fail(400, { message: 'Missing name or phone' });
+        const { name, phone, userId } = Object.fromEntries(await request.formData());
+        if (!name || !phone || !userId) return fail(400, { message: 'Missing name, phone or userId' });
         try {
             await prisma.contact.create({
                 data: {
                     // @ts-ignore
                     name,
                     // @ts-ignore
-                    phone
+                    phone,
+                    // @ts-ignore
+                    userId,
                 }
             })
         } catch {
