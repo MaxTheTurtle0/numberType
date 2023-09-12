@@ -18,6 +18,7 @@ export const load = async (event) => {
             where: {
                 userId: userId[0].userId
             },
-        })
+        }),
+        userId: userId[0].userId
     };
 }

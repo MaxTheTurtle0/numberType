@@ -1,12 +1,15 @@
 <script>
 
     import { goto } from "$app/navigation";
-       
+    import { page } from "$app/stores";      
+
     /**
      * Search contacts by name and display results
      * @param {Event} event 
      */
     async function searchContacts(event) { 
+
+        const userId = $page.data.userId;
 
         // @ts-ignore
         const input = event.target.value;
@@ -19,7 +22,7 @@
 
         if (!input || input.length === 0) return;
 
-        const contacts = await fetch(`/api/contacts?name=${input}`).then(response => response.json());
+        const contacts = await fetch(`/api/contacts?name=${input}&userId=${userId}`).then(response => response.json());
 
         const contactElement = document.createElement("div");
         

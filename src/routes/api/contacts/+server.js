@@ -7,14 +7,20 @@ export const GET = async ({ url, locals }) => {
 
     /** @type {string} */
     const name = url.searchParams.get('name') || '';
-        
-    if (name === '') return new Response(JSON.stringify({ message: 'Missing name' }), { status: 400 });
+       
+    if (!name) return new Response(JSON.stringify({ message: 'Missing name' }), { status: 400 });
+    
+    /** @type {string} */
+    const userId = url.searchParams.get('userId') || '';
+
+    if (!userId) return new Response(JSON.stringify({ message: 'Missing userId' }), { status: 400 });
 
     const contacts = await prisma.contact.findMany({
         where: {
             name: {
                 contains: name 
-            }
+            },
+            userId: userId
         }
     });
 

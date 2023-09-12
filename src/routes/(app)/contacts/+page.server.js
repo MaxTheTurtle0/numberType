@@ -21,7 +21,8 @@ export const load = async (event) => {
             orderBy: {
                 name: 'asc'
             },
-        })
+        }),
+        userId: userId[0].userId
     };
 }
 
