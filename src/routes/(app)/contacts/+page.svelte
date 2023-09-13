@@ -8,6 +8,10 @@
 
 </script>
 
+<svelte:head>
+    <title>NumberType | Contacts</title>
+</svelte:head>
+
 <Card>
 <div id="contacts">
     {#if contacts.length === 0}

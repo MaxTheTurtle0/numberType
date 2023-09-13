@@ -24,6 +24,10 @@
 
 </script>
 
+<svelte:head>
+    <title>NumberType | Practice</title>
+</svelte:head>
+
 <Card>
     {#if contacts.length === 0}
         <h1>You have no contacts</h1>

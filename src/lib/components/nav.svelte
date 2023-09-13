@@ -2,6 +2,7 @@
 
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";      
+	import { signOut } from "@auth/sveltekit/client";
 
     /**
      * Search contacts by name and display results
@@ -53,7 +54,8 @@
             <li>
                 <div class="search">
                     <input type="search" placeholder="Search" on:input={searchContacts}>
-                    <button class="add-btn" type="button" on:click={() => goto("/contacts/add")}>+</button> 
+                    <button class="sign-out" type="button" on:click={signOut}></button>
+                    <button class="add-btn" type="button" on:click={() => goto("/contacts/add")}>+</button>  
                 </div>
                 <div class="search-results"></div>
             </li>
@@ -189,7 +191,7 @@
     }
 
     .search input {
-        width: 240px;
+        width: 190px;
     }
 
     .search button {

@@ -1,9 +1,15 @@
 <script>
 
     import Card from "$lib/components/card.svelte";
+    
+    /** @type {import('./$types').PageData}*/ 
     export let data;
 
 </script>
+
+<svelte:head>
+    <title>NumberType | Add Contact</title>
+</svelte:head>
 
 <Card>
     <h1>Add Contact</h1>
