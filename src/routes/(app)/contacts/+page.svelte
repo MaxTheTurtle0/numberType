@@ -15,7 +15,7 @@
 <Card>
 <div id="contacts">
     {#if contacts.length === 0}
-        <h1>You have no contacts</h1>
+        <h1 class="no-contacts">You have no contacts</h1>
     {:else}
     <h1>Your Contacts</h1>
     {#each contacts as contact}
@@ -53,6 +53,10 @@
         grid-template-areas:
             "name phone delete";
         grid-template-columns: 200px 200px 30px;
+    }
+
+    .no-contacts {
+        text-align: center;
     }
 
     @media (max-width: 550px) {

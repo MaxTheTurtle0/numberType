@@ -54,8 +54,8 @@
             <li>
                 <div class="search">
                     <input type="search" placeholder="Search" on:input={searchContacts}>
-                    <button class="sign-out" type="button" on:click={signOut}></button>
-                    <button class="add-btn" type="button" on:click={() => goto("/contacts/add")}>+</button>  
+                    <button class="sign-out" title="sign out" type="button" on:click={signOut}></button>
+                    <button class="add-btn" title="add contact" type="button" on:click={() => goto("/contacts/add")}>+</button>  
                 </div>
                 <div class="search-results"></div>
             </li>
@@ -64,7 +64,7 @@
 </header>
 
 <style>
-    
+     
     header {
         text-align: center;
         position: fixed;
@@ -142,6 +142,15 @@
     label span::after {
         transform: translateY(0.5rem);
     }
+
+    .sign-out {
+        background-image: url("/signout.webp");
+        background-repeat: no-repeat;
+        background-size: calc(100% - 0.8rem);
+        background-position: center;
+        border: none;
+        cursor: pointer;
+    } 
 
     #burger-menu-checkbox {
         display: none;

@@ -1,5 +1,5 @@
 <script>
-	import Card from '$lib/components/card.svelte';
+	import Card from '$lib/components/card.svelte';        
 
     /** @type {import('./$types').PageData} */ 
     export let data;
@@ -16,10 +16,26 @@
         // @ts-ignore
         document.querySelector("input[type=hidden]").value = tmpContacts[randomIndex]["id"];
         // @ts-ignore
-        document.getElementById("contact-name").innerHTML = `${tmpContacts[randomIndex]["name"]}`
-
+        document.getElementById("contact-name").textContent = `${tmpContacts[randomIndex]["name"]}`
         // @ts-ignore
         document.querySelector("input[type=tel]").value = "";
+        // @ts-ignore
+        document.querySelector("input[type=tel]").style.borderColor = "rgb(99, 93, 255)";
+    }
+
+    function validateInput() {
+        // @ts-ignore
+        const input = document.querySelector("input[type=tel]").value;
+        // @ts-ignore
+        const phone = document.querySelector(".phone").textContent;
+        // @ts-ignore
+        if (!(phone.includes(input))) {
+            // @ts-ignore
+            document.querySelector("input[type=tel]").style.border = "2px solid red";
+        } else {
+            // @ts-ignore
+            document.querySelector("input[type=tel]").style.borderColor = "rgb(99, 93, 255)";
+        }
     }
 
 </script>
@@ -30,13 +46,13 @@
 
 <Card>
     {#if contacts.length === 0}
-        <h1>You have no contacts</h1>
+        <h1 class="no-contacts">You have no contacts</h1>
     {:else}
         <h1 id="contact-name">{contacts[0]["name"]}</h1>
         <h2 class="phone">{contacts[0]["phone"]}</h2>
-        <form on:submit|preventDefault={nextContact}>
-            <input type="hidden" value={contacts[0].id}>
-            <input type="tel">
+        <form on:submit|preventDefault={nextContact}> 
+            <input type="hidden" title="phone-number" value={contacts[0].id}>
+            <input type="tel" title="phone-number" name="phone-number" on:input={validateInput}>
         </form>
     {/if}
 </Card>
@@ -49,5 +65,9 @@
         font-size: 2rem;
         outline: none;
     } 
+
+    .no-contacts {
+        text-align: center;
+    }
    
 </style>
