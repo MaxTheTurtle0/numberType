@@ -1,6 +1,6 @@
 <script>
 	import Card from '$lib/components/card.svelte';        
-
+    
     /** @type {import('./$types').PageData} */ 
     export let data;
 
