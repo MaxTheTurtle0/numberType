@@ -19,7 +19,7 @@
     {:else}
     <h1>Your Contacts</h1>
     {#each contacts as contact}
-        <div id="contact">
+        <div class="contact" id="${contact.id}">
             <h2>{contact.name}</h2>
             <h3>{contact.phone}</h3>
             <form action="?/deleteContact&id={contact.id}" method="post">
@@ -47,7 +47,7 @@
         margin-bottom: auto;
     }
 
-    #contact {
+    .contact {
         display: grid;
         align-items: center;
         grid-template-areas:
@@ -60,7 +60,7 @@
     }
 
     @media (max-width: 550px) {
-        #contact {
+        .contact {
             display: grid;
             grid-template-areas:
                 "name delete"
@@ -68,15 +68,15 @@
             grid-template-columns: 200px 30px;
         }  
         
-        #contact h2 {
+        .contact h2 {
             grid-area: name;
         }
 
-        #contact h3 {
+        .contact h3 {
             grid-area: phone;
         }
 
-        #contact form {
+        .contact form {
             grid-area: delete;
         }
     }

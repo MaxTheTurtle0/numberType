@@ -34,7 +34,7 @@
         }
         
         contacts.forEach((/** @type {{ name: string, id: number, phone: string }} */ contact) => {
-            contactElement.innerHTML += `<h2>${contact.name}</h2>`;
+            contactElement.innerHTML += `<a href="/contacts/#${contact.id}">${contact.name}</a>`;
             searchResults.appendChild(contactElement);
         });
     }
@@ -75,6 +75,14 @@
 
     h1 {
         padding: 0.5rem;
+    }
+
+    :global(a) {
+        display: block;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        width: 100%;
+        text-align: center;
     }
 
     nav {

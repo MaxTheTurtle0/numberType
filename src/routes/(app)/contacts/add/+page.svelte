@@ -14,8 +14,8 @@
 <Card>
     <h1>Add Contact</h1>
     <form action="?/createContact" method="post">
-        <input type="text" name="name" placeholder="name">
-        <input type="tel" name="phone" placeholder="tel number">
+        <input type="text" name="name" placeholder="name" required>
+        <input type="tel" name="phone" placeholder="tel number" required>
         <input type="hidden" name="userId" value={data.userId}>
         <button type="submit">Submit</button>
     </form>
