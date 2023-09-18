@@ -15,7 +15,7 @@
 <Card>
 <div id="contacts">
     {#if contacts.length === 0}
-        <h1 class="no-contacts">You have no contacts</h1>
+        <h1>You have no contacts</h1>
     {:else}
     <h1>Your Contacts</h1>
     {#each contacts as contact}
@@ -44,7 +44,6 @@
         align-items: center;
         justify-content: center;
         gap: 1rem;
-        margin-bottom: auto;
     }
 
     .contact {
@@ -55,7 +54,7 @@
         grid-template-columns: 200px 200px 30px;
     }
 
-    .no-contacts {
+    h1 {
         text-align: center;
     }
 

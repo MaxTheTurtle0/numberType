@@ -9,7 +9,7 @@
         justify-content: center;
         align-items: center;
         padding: 2.5rem;
-        border-radius: 1rem;
+        border-radius: 1rem; 
         gap: 1rem;
         box-shadow: 
         rgba(0, 0, 0, 0.08) 0px 4.48rem 5.27rem, 
@@ -25,4 +25,5 @@
             padding: 1.5rem;
         }
     }
+
 </style>

@@ -46,18 +46,21 @@
 
 <Card>
     {#if contacts.length === 0}
-        <h1 class="no-contacts">You have no contacts</h1>
+        <h1>You have no contacts</h1>
     {:else}
         <h1 id="contact-name">{contacts[0]["name"]}</h1>
         <h2 class="phone">{contacts[0]["phone"]}</h2>
         <form on:submit|preventDefault={nextContact}> 
             <input type="hidden" title="phone-number" value={contacts[0].id}>
-            <input type="tel" title="phone-number" name="phone-number" on:input={validateInput}>
+            <input type="tel" title="phone-number" name="phone-number" on:input={validateInput} autocomplete="new-password">
         </form>
     {/if}
 </Card>
 
 <style>
+    h1 {
+        text-align: center;
+    }
 
     input[type=tel] {
         width: 100%;
@@ -65,9 +68,5 @@
         font-size: 2rem;
         outline: none;
     } 
-
-    .no-contacts {
-        text-align: center;
-    }
    
 </style>
