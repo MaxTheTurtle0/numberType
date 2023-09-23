@@ -8,6 +8,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        position: relative;
         padding: 2.5rem;
         border-radius: 1rem; 
         gap: 1rem;

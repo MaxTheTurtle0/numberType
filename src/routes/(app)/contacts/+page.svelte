@@ -13,12 +13,12 @@
 </svelte:head>
 
 <Card>
-<div id="contacts">
     {#if contacts.length === 0}
         <h1>You have no contacts</h1>
     {:else}
     <h1>Your Contacts</h1>
-    {#each contacts as contact}
+    <div id="contacts">
+        {#each contacts as contact}
         <div class="contact" id="${contact.id}">
             <h2>{contact.name}</h2>
             <h3>{contact.phone}</h3>
@@ -28,12 +28,11 @@
         </div>
         <hr>
     {/each}
+    </div>  
     {/if}
-</div>
 </Card>
 
 <style>
-
     hr {
         width: 100%;
     }
@@ -41,9 +40,9 @@
     #contacts {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
         gap: 1rem;
+        max-height: 50dvh;
+        overflow-y: auto;
     }
 
     .contact {
