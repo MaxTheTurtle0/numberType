@@ -13,7 +13,7 @@ export const load = async (event) => {
     });
 
     // @ts-ignore 
-    return { 
+    return {
         contacts: await prisma.contact.findMany({
             where: {
                 userId: userId[0].userId

@@ -4,12 +4,10 @@
     /** @type {import('./$types').PageData} */ 
     export let data;
 
-    $: ({ contacts } = data);
-
     function nextContact() { 
         // @ts-ignore
         const currentContactIndex = contacts.findIndex(contact => contact.id == document.querySelector("input[type=hidden]").value);
-        const tmpContacts = contacts.slice(0, currentContactIndex).concat(contacts.slice(currentContactIndex + 1, contacts.length)); 
+        const tmpContacts = data.contacts.slice(0, currentContactIndex).concat(contacts.slice(currentContactIndex + 1, data.contacts.length)); 
         const randomIndex = Math.floor(Math.random() * tmpContacts.length);
         // @ts-ignore
         document.querySelector(".phone").textContent = tmpContacts[randomIndex]["phone"];
@@ -45,13 +43,17 @@
 </svelte:head>
 
 <Card>
-    {#if contacts.length === 0}
+    {#if data.contacts.length === 0}
         <h1>You have no contacts</h1>
     {:else}
-        <h1 id="contact-name">{contacts[0]["name"]}</h1>
-        <h2 class="phone">{contacts[0]["phone"]}</h2>
+        <h1 id="contact-name">{data.contacts[0]["name"]}</h1>
+        <div class="phone-container">
+            <label for="checkbox">Show number</label>
+            <input type="checkbox" title="show-number"> 
+            <h2 class="phone">{data.contacts[0]["phone"]}</h2>
+        </div> 
         <form on:submit|preventDefault={nextContact}> 
-            <input type="hidden" title="phone-number" value={contacts[0].id}>
+            <input type="hidden" title="phone-number" value={data.contacts[0].id}>
             <input type="tel" title="phone-number" name="phone-number" on:input={validateInput} autocomplete="new-password">
         </form>
     {/if}
@@ -68,5 +70,34 @@
         font-size: 2rem;
         outline: none;
     } 
-   
+
+    input[type=checkbox] {
+        z-index: 1; 
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .phone {
+        position: absolute;
+        opacity: 0;
+
+    }
+
+    input[type=checkbox]:checked + .phone {
+        opacity: 1; 
+        position: relative;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    label {
+        font-size: 1.5rem;
+    }
+
+    .phone-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+    }
+ 
 </style>
