@@ -1,7 +1,4 @@
-<main>
-    <div class="content">
-        <slot />
-    </div>
+<main> 
     <div class="side">
         <div>
             <h1>Welcome to NumberType!</h1>
@@ -10,18 +7,13 @@
             <p>This way, you can learn to type numbers without looking at your keyboard!</p>
         </div> 
     </div>
+    <div class="content">
+        <slot />
+    </div>
 </main>
-<footer>
-    <p>&copy 2023 by MaxTheTurtle0, All Rights Reserved</p>
-</footer>
 
 <style>
    
-    footer {
-        position: absolute;
-        bottom: 0;
-    }
-
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -37,18 +29,20 @@
     }
 
     .side {
+        text-align: center;
+        color: #fff;
         padding: 1rem;
-        background-color: #eaeaea;
+        background: -webkit-linear-gradient(-45deg, rgba(84, 0, 255, 1) 0, rgba(84, 0, 255, 1) 40%, rgba(140, 0, 255, 1) 40%, rgba(84, 0, 255, 1) 59%, rgba(84, 0, 255, 1) 59%, rgba(84, 0, 255, 1) 100%), -webkit-linear-gradient(-45deg, rgba(84, 0, 255, 1) 0, rgba(84, 0, 255, 1) 7%, transparent 7%, transparent 100%), -webkit-linear-gradient(-225deg, rgba(84, 0, 255, 1) 0, rgba(84, 0, 255, 1) 7%, transparent 7%, transparent 100%), rgba(84, 0, 255, 1); 
     }
 
     .side div {
+        font-size: 1.25rem;
         align-items: flex-start; 
-        font-weight: bold;
     }
 
     hr {
         width: 100%;
-        border: 1px solid #ccc;
+        border: 1px solid #eee;
     }
 
     @media(max-width: 680px) {

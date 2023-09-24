@@ -10,6 +10,7 @@
 
 <svelte:head>
     <title>NumberType | Contacts</title>
+    <meta name="description" content="View your contacts">
 </svelte:head>
 
 <Card>

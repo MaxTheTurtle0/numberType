@@ -3,58 +3,80 @@
     
     /** @type {import('./$types').PageData} */ 
     export let data;
+   
+    /**
+    * @type {boolean}
+    */
+    let isMatching = true;
+
+    /**
+    * @type {string}
+    */
+    let phoneNumber = data.contacts[0]["phone"];
+
+    /**
+    * @type {string}
+    */
+    let contactName = data.contacts[0]["name"];
+
+    /**
+    * @type {number}
+    */
+    let contactId = data.contacts[0]["id"];
+
+    /**
+    * @type {string}
+    */
+    let userInput = "";
 
     function nextContact() { 
-        // @ts-ignore
-        const currentContactIndex = contacts.findIndex(contact => contact.id == document.querySelector("input[type=hidden]").value);
-        const tmpContacts = data.contacts.slice(0, currentContactIndex).concat(contacts.slice(currentContactIndex + 1, data.contacts.length)); 
+        const currentContactIndex = data.contacts.findIndex(contact => contact.id == contactId);
+        const tmpContacts = data.contacts.slice(0, currentContactIndex).concat(data.contacts.slice(currentContactIndex + 1, data.contacts.length)); 
         const randomIndex = Math.floor(Math.random() * tmpContacts.length);
-        // @ts-ignore
-        document.querySelector(".phone").textContent = tmpContacts[randomIndex]["phone"];
-        // @ts-ignore
-        document.querySelector("input[type=hidden]").value = tmpContacts[randomIndex]["id"];
-        // @ts-ignore
-        document.getElementById("contact-name").textContent = `${tmpContacts[randomIndex]["name"]}`
-        // @ts-ignore
-        document.querySelector("input[type=tel]").value = "";
-        // @ts-ignore
-        document.querySelector("input[type=tel]").style.borderColor = "rgb(99, 93, 255)";
-    }
+        
+        isMatching = true;
 
-    function validateInput() {
-        // @ts-ignore
-        const input = document.querySelector("input[type=tel]").value;
-        // @ts-ignore
-        const phone = document.querySelector(".phone").textContent;
-        // @ts-ignore
-        if (!(phone.includes(input))) {
-            // @ts-ignore
-            document.querySelector("input[type=tel]").style.border = "2px solid red";
-        } else {
-            // @ts-ignore
-            document.querySelector("input[type=tel]").style.borderColor = "rgb(99, 93, 255)";
+        phoneNumber = tmpContacts[randomIndex]["phone"];
+ 
+        contactName = tmpContacts[randomIndex]["name"];
+
+        contactId = tmpContacts[randomIndex]["id"];
+                 
+        userInput = "";
+    } 
+    
+    /**
+    * @param {string} string1
+    * @param {string} string2
+    * @returns {boolean}
+    */
+    function isMatchingStringUntilLength(string1, string2) {
+        for (let i = 0; i < string1.length; i++) {
+            if (string1[i] !== string2[i]) return false;
         }
+        return true;
     }
-
+    
 </script>
 
 <svelte:head>
     <title>NumberType | Practice</title>
+    <meta name="description" content="Practice typing your contacts' numbers and learn to type numbers without looking at your keyboard">
 </svelte:head>
 
 <Card>
     {#if data.contacts.length === 0}
         <h1>You have no contacts</h1>
     {:else}
-        <h1 id="contact-name">{data.contacts[0]["name"]}</h1>
+        <h1 id="contact-name">{contactName}</h1>
         <div class="phone-container">
-            <label for="checkbox">Show number</label>
-            <input type="checkbox" title="show-number"> 
-            <h2 class="phone">{data.contacts[0]["phone"]}</h2>
+            <label for="show-number">Show number</label>
+            <input type="checkbox" title="show-number" id="show-number"> 
+            <h2 class="phone">{phoneNumber}</h2>
         </div> 
         <form on:submit|preventDefault={nextContact}> 
-            <input type="hidden" title="phone-number" value={data.contacts[0].id}>
-            <input type="tel" title="phone-number" name="phone-number" on:input={validateInput} autocomplete="new-password">
+            <input type="hidden" bind:value={contactId}>
+            <input class={isMatching ? '' : 'wrong'} type="tel" title="phone-number" name="phone-number" bind:value={userInput} on:input={() => isMatching = isMatchingStringUntilLength(userInput, phoneNumber)} autocomplete="new-password">
         </form>
     {/if}
 </Card>
@@ -98,6 +120,10 @@
         align-items: center;
         gap: 1rem;
         text-align: center;
+    }
+
+    .wrong {
+        border: 2px solid red;
     }
  
 </style>

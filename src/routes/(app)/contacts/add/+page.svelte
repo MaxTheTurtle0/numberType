@@ -9,6 +9,7 @@
 
 <svelte:head>
     <title>NumberType | Add Contact</title>
+    <meta name="description" content="Add a contact">
 </svelte:head>
 
 <Card>

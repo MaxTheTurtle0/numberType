@@ -7,13 +7,14 @@
 
 <svelte:head>
     <title>NumberType | Sign In</title>
+    <meta name="description" content="Sign in to NumberType">
 </svelte:head>
 
 <Card>
     <h1>Sign In</h1>
-    <button class="github" on:click={() => signIn('github')}>GitHub</button>
-    <button class="google" on:click={() => signIn('google')}>Google</button>
-    <button class="twitter" on:click={() => signIn('twitter')}>Twitter</button>
+    <button type="button" class="github" on:click={() => signIn('github')}>GitHub</button>
+    <button type="button" class="google" on:click={() => signIn('google')}>Google</button>
+    <button type="button" class="twitter" on:click={() => signIn('twitter')}>Twitter</button>
 </Card>
 
 <style>
@@ -31,15 +32,15 @@
         background-color: #1da1f2;
     }
 
-    .github:hover {
+    .github:hover, .github:focus {
         background-color: #555;
     }
 
-    .google:hover {
+    .google:hover, .google:focus {
         background-color: #ddd;
     }
 
-    .twitter:hover {
+    .twitter:hover, .twitter:focus {
         background-color: #1a91da;
     }
 
