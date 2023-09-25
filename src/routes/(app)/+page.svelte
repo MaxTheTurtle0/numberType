@@ -1,5 +1,6 @@
 <script>
 	import Card from '$lib/components/card.svelte';        
+	import { onMount } from 'svelte';
     
     /** @type {import('./$types').PageData} */ 
     export let data;
@@ -12,22 +13,30 @@
     /**
     * @type {string}
     */
-    let phoneNumber = data.contacts[0]["phone"];
-
+    let phoneNumber = "";
+    
     /**
     * @type {string}
     */
-    let contactName = data.contacts[0]["name"];
+    let contactName = "";
 
     /**
     * @type {number}
     */
-    let contactId = data.contacts[0]["id"];
+    let contactId = 0; 
 
     /**
     * @type {string}
     */
     let userInput = "";
+
+    onMount(() => {
+        if (data.contacts.length > 0) {
+            phoneNumber = data.contacts[0]["phone"];
+            contactName = data.contacts[0]["name"];
+            contactId = data.contacts[0]["id"];
+        }
+    });
 
     function nextContact() { 
         const currentContactIndex = data.contacts.findIndex(contact => contact.id == contactId);

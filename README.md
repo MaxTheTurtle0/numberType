@@ -9,7 +9,7 @@
     <h1 align="center">NumberType - Built with SvelteKit, Auth.js and Prisma</h1>
 </p>
 
-### Video Demo: Video not available yet
+### Video Demo: https://www.youtube.com/watch?v=ofimdj8HRPM
 ### Description:
 ## What's the thought behind NumberType?
 
