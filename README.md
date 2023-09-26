@@ -9,8 +9,8 @@
     <h1 align="center">NumberType - Built with SvelteKit, Auth.js and Prisma</h1>
 </p>
 
+## This is my final project for CS50x
 ### Video Demo: https://www.youtube.com/watch?v=ofimdj8HRPM
-### Description:
 ## What's the thought behind NumberType?
 
 - **Problem**: 
