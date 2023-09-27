@@ -3,6 +3,8 @@
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";      
 	import { signOut } from "@auth/sveltekit/client";
+    
+    let contactElement = "";
 
     /**
      * Search contacts by name and display results
@@ -15,28 +17,21 @@
         // @ts-ignore
         const input = event.target.value;
 
-        const searchResults = document.querySelector(".search-results");
-        
-        if (!searchResults) return;
-
-        searchResults.innerHTML = "";
+        contactElement = "";
 
         if (!input || input.length === 0) return;
 
         const contacts = await fetch(`/api/contacts?name=${input}&userId=${userId}`).then(response => response.json());
-
-        const contactElement = document.createElement("div");
         
         if (!contacts || contacts.length === 0) {
-            contactElement.innerHTML = "<h2>No results</h2>";
-            searchResults.appendChild(contactElement);
+            contactElement = "<h2>No results</h2>";
             return;
         }
         
         contacts.forEach((/** @type {{ name: string, id: number, phone: string }} */ contact) => {
-            contactElement.innerHTML += `<a href="/contacts/#${contact.id}">${contact.name}</a>`;
-            searchResults.appendChild(contactElement);
+            contactElement += `<a href="/contacts/#${contact.id}">${contact.name}</a>`;
         });
+        return;
     }
 
 </script>
@@ -57,7 +52,7 @@
                     <button class="sign-out" title="sign out" type="button" on:click={signOut}></button>
                     <button class="add-btn" title="add contact" type="button" on:click={() => goto("/contacts/add")}>+</button>  
                 </div>
-                <div class="search-results"></div>
+                <div class="search-results">{@html contactElement}</div>
             </li>
         </ul>
     </nav>
